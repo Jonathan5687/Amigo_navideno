@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── Reset & base ─────────────────────────────────────── */
+    /* ─── Reset & base  */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -37,7 +37,7 @@
       overflow-x: hidden;
     }
 
-    /* ─── Snowflakes ────────────────────────────────────────── */
+    /* ─── Snowflakes */
     #snow { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .flake {
       position: absolute;
@@ -50,7 +50,7 @@
       to { transform: translateY(105vh) rotate(360deg); }
     }
 
-    /* ─── Layout ────────────────────────────────────────────── */
+    /* ─── Layout  */
     .page {
       position: relative;
       z-index: 1;
@@ -59,7 +59,7 @@
       padding: 0 20px 60px;
     }
 
-    /* ─── Header ────────────────────────────────────────────── */
+    /* ─── Header  */
     header {
       text-align: center;
       padding: 48px 20px 32px;
@@ -82,7 +82,7 @@
       font-weight: 500;
     }
 
-    /* ─── Divider ───────────────────────────────────────────── */
+    /* ─── Divider  */
     .divider {
       display: flex;
       align-items: center;
@@ -100,7 +100,7 @@
       background: linear-gradient(to right, transparent, rgba(34, 197, 94, 0.3), transparent);
     }
 
-    /* ─── Names grid ────────────────────────────────────────── */
+    /* ─── Cuadricula de nombres  */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
@@ -144,7 +144,7 @@
     .name-btn:active { transform: translateY(-1px) scale(.99); }
     .name-btn .icon { display: block; font-size: 1.3rem; margin-bottom: 4px; }
 
-    /* ─── Overlay / Modal ───────────────────────────────────── */
+    /* ─── Overlay / Modal  */
     #overlay {
       position: fixed;
       inset: 0;
@@ -252,7 +252,7 @@
     }
     .btn-cancel:hover { border-color: rgba(255,255,255,.45); color: rgba(255,255,255,.85); }
 
-    /* ─── Reveal screen ─────────────────────────────────────── */
+    /* ─── Pantalla de revelación  */
     #screen-reveal {
       display: none;
       min-height: 100vh;
@@ -321,7 +321,7 @@
     }
     .btn-back:hover { background: rgba(34, 197, 94, .12); transform: translateY(-2px); }
 
-    /* ─── Confetti ──────────────────────────────────────────── */
+    /* ─── Confetti  */
     .conf-piece {
       position: fixed;
       top: -12px;
@@ -336,7 +336,7 @@
       100% { opacity: 0; transform: translateY(110vh) rotate(900deg) scale(.4); }
     }
 
-    /* ─── Responsive ────────────────────────────────────────── */
+    /* ─── Responsive  */
     @media (max-width: 480px) {
       .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
       .name-btn { padding: 14px 8px; font-size: .82rem; }
@@ -349,7 +349,7 @@
 <!-- Snowflakes container -->
 <div id="snow"></div>
 
-<!-- ── SCREEN 1: Select your name ── -->
+<!-- ── Primera pantalla: Selección de nombre ── -->
 <div id="screen-select">
   <div class="page">
     <header>
@@ -363,7 +363,7 @@
   </div>
 </div>
 
-<!-- ── SCREEN 2: Reveal ── -->
+<!-- ── Pantalla 2: Revelar amigo ── -->
 <div id="screen-reveal">
   <div class="reveal-card">
     <div class="rv-hi">¡Hola,</div>
@@ -376,7 +376,7 @@
   </div>
 </div>
 
-<!-- ── MODAL: Password ── -->
+<!-- ── Contraseña ── -->
 <div id="overlay" onclick="overlayBg(event)">
   <div class="modal">
     <span class="modal-lock">🔐</span>
@@ -395,51 +395,44 @@
       >
     </div>
     <div class="error" id="pw-error"></div>
-    <button class="btn-enter" onclick="submitPw()">Entrar 🎅</button>
+    <button class="btn-enter" onclick="submitPw()">Ver 🎅</button>
     <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
   </div>
 </div>
 
 
 <script>
-/* ════════════════════════════════════════════════════════════════
-   🎄  CONFIGURACIÓN — EDITA AQUÍ
-   ════════════════════════════════════════════════════════════════
-   Cada participante tiene:
-     nombre  → nombre que aparece en el botón (no cambiar)
-     clave   → contraseña personal (cámbiala por lo que quieras)
-     regalo  → a quién le toca regalar (pon el nombre exacto)
-   ════════════════════════════════════════════════════════════════ */
+/* Configuracion claves y a quien le regala */
 const PARTICIPANTES = [
-  { nombre: "Abuelita Alicia", clave: "abuel01",  regalo: "Yobany"         },
-  { nombre: "Heriberto",       clave: "herib02",  regalo: "Flor"           },
-  { nombre: "Paty",            clave: "paty03",   regalo: "Jonathan"       },
-  { nombre: "Diego",           clave: "diego04",  regalo: "Andrea"         },
-  { nombre: "Nancy",           clave: "nancy05",  regalo: "Sergio"         },
-  { nombre: "Andrés",          clave: "andres06", regalo: "Aleja"          },
-  { nombre: "Cesar",           clave: "cesar07",  regalo: "Paty"           },
-  { nombre: "Flor",            clave: "flor08",   regalo: "Samuel"         },
-  { nombre: "Óscar",           clave: "oscar09",  regalo: "Abuelita Alicia"},
-  { nombre: "Angie",           clave: "angie10",  regalo: "Andrés"         },
-  { nombre: "Andrea",          clave: "andrea11", regalo: "Zory"           },
-  { nombre: "Henry",           clave: "henry12",  regalo: "Diego"          },
-  { nombre: "Ana lu",          clave: "analu13",  regalo: "Nydia"          },
-  { nombre: "Luisa María",     clave: "luisa14",  regalo: "Óscar"          },
-  { nombre: "Yobany",          clave: "yoban15",  regalo: "Valentina"      },
-  { nombre: "Caro",            clave: "caro16",   regalo: "Ana lu"         },
-  { nombre: "Aleja",           clave: "aleja17",  regalo: "Cesar"          },
-  { nombre: "Uriel",           clave: "uriel18",  regalo: "Laura"          },
-  { nombre: "Nydia",           clave: "nydia19",  regalo: "Luisa María"    },
-  { nombre: "Aristides",       clave: "arist20",  regalo: "Nancy"          },
-  { nombre: "Valentina",       clave: "valen21",  regalo: "Henry"          },
-  { nombre: "Jonathan",        clave: "jonat22",  regalo: "Adriana"        },
-  { nombre: "Fabián",          clave: "fabia23",  regalo: "Angie"          },
-  { nombre: "Gricelda",        clave: "grice24",  regalo: "Heriberto"      },
-  { nombre: "Samuel",          clave: "samue25",  regalo: "Caro"           },
-  { nombre: "Laura",           clave: "laura26",  regalo: "Aristides"      },
-  { nombre: "Adriana",         clave: "adria27",  regalo: "Gricelda"       },
-  { nombre: "Zory",            clave: "zory28",   regalo: "Uriel"          },
-  { nombre: "Sergio",          clave: "sergi29",  regalo: "Fabián"         },
+  { nombre: "Abuelita Alicia", clave: "103903",  regalo: "Yobany"         },
+  { nombre: "Heriberto",       clave: "139437",  regalo: "Flor"           },
+  { nombre: "Paty",            clave: "154193",   regalo: "Jonathan"       },
+  { nombre: "Diego",           clave: "216442",  regalo: "Andrea"         },
+  { nombre: "Nancy",           clave: "224466",  regalo: "Sergio"         },
+  { nombre: "Andrés",          clave: "264946", regalo: "Aleja"          },
+  { nombre: "Cesar",           clave: "394193",  regalo: "Paty"           },
+  { nombre: "Flor",            clave: "415004",   regalo: "Samuel"         },
+  { nombre: "Óscar",           clave: "432007",  regalo: "Abuelita Alicia"},
+  { nombre: "Angie",           clave: "438969",  regalo: "Andrés"         },
+  { nombre: "Andrea",          clave: "474681", regalo: "Zory"           },
+  { nombre: "Henry",           clave: "509002",  regalo: "Diego"          },
+  { nombre: "Ana lu",          clave: "517034",  regalo: "Nydia"          },
+  { nombre: "Luisa María",     clave: "536282",  regalo: "Óscar"          },
+  { nombre: "Yobany",          clave: "584647",  regalo: "Valentina"      },
+  { nombre: "Caro",            clave: "595138",   regalo: "Ana lu"         },
+  { nombre: "Aleja",           clave: "614152",  regalo: "Cesar"          },
+  { nombre: "Uriel",           clave: "617908",  regalo: "Laura"          },
+  { nombre: "Nydia",           clave: "622106",  regalo: "Luisa María"    },
+  { nombre: "Aristides",       clave: "633145",  regalo: "Nancy"          },
+  { nombre: "Valentina",       clave: "656074",  regalo: "Henry"          },
+  { nombre: "Jonathan",        clave: "730597",  regalo: "Adriana"        },
+  { nombre: "Fabián",          clave: "779839",  regalo: "Angie"          },
+  { nombre: "Gricelda",        clave: "793600",  regalo: "Heriberto"      },
+  { nombre: "Samuel",          clave: "839386",  regalo: "Caro"           },
+  { nombre: "Laura",           clave: "885652",  regalo: "Aristides"      },
+  { nombre: "Adriana",         clave: "909067",  regalo: "Gricelda"       },
+  { nombre: "Zory",            clave: "958917",   regalo: "Uriel"          },
+  { nombre: "Sergio",          clave: "972802",  regalo: "Fabián"         },
 ];
 /* ════════════════════════════════════════════════════════════════ */
 
@@ -462,7 +455,7 @@ const PARTICIPANTES = [
 })();
 
 
-/* ── Build name buttons ──────────────────────────────────────── */
+/* ── Constructor nombre de botones  */
 const grid = document.getElementById('names-grid');
 PARTICIPANTES.forEach((p, i) => {
   const btn = document.createElement('button');
@@ -473,7 +466,7 @@ PARTICIPANTES.forEach((p, i) => {
 });
 
 
-/* ── Modal state ─────────────────────────────────────────────── */
+/* ── Modal state  */
 let selectedIdx = null;
 
 function openModal(idx) {
@@ -517,7 +510,7 @@ document.getElementById('pw-input').addEventListener('keydown', e => {
 });
 
 
-/* ── Reveal ──────────────────────────────────────────────────── */
+/* ──  Revelar  */
 function showReveal(idx) {
   const p = PARTICIPANTES[idx];
   document.getElementById('screen-select').style.display = 'none';
@@ -534,7 +527,7 @@ function goBack() {
 }
 
 
-/* ── Confetti ────────────────────────────────────────────────── */
+/* ── Confetti dsepues de revelar */
 function launchConfetti() {
   const palette = ['#fbbf24', '#ef4444', '#22c55e', '#3b82f6', '#a855f7', '#f97316', '#fff', '#86efac'];
   for (let i = 0; i < 90; i++) {
